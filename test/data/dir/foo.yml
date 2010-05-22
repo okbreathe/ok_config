@@ -1,0 +1,11 @@
+---
+name: "foo"
+power_level: 10000
+colors:
+  - Red
+  - Orange
+  - Yellow
+  - Green
+  - Blue
+  - Indigo
+  - Violet

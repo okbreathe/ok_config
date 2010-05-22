@@ -1,0 +1,77 @@
+= ok_config
+
+OkConfig is a crisp, yet full-bodied application configuration manager.
+
+OkConfig is focused on webapp configuration. Meaning that you'll load
+configuration at app startup and make changes to the configuration in bulk 
+(usually from form parameters).
+
+== Features
+
+ * Supports config loading from YAML or hashes
+ * Access config using method syntax
+ * Intelligent configuration loading
+
+=== Usage
+
+  OkConfig.root = File.expand_path('../../config', __FILE__)
+  OkConfig.load "defaults", "user_settings" # 'user_settings' will overwrite 'defaults'
+  App = OkConfig
+
+Paths can be to files or directories. If the path is a directory it will load all
+the files in that directory. Omitting any paths will load all files under the
+root.
+
+You can load as many configurations as you would like. Files will be loaded in
+order. Each file will be recursively merged with the previous config file.
+
+Alternatively, you can load from a hash, using the same syntax:
+
+  OkConfig.load({:foo => :bar})
+
+=== Access the config via method syntax
+
+  App.name       # => "example.com"
+  App.email      # => { 'sender' => "info@example.com", 'port' => 25, 'host' => 'localhost' }
+  App.email.port # => 25
+
+=== Intelligent Configuration Loading
+
+As in life, we don't always get what we want. For example, parameters
+received from a form submission will usually be strings.
+
+#safe_load takes the same arguments and has the same behavior as #load,
+however, additionally it ensures that subsequently loaded arguments are coerced
+to their original types.
+
+  App.load({:foo => 1})
+  App.foo # => 1
+
+  App.safe_load({ :foo => "2" })
+  App.foo # => 2
+
+  App.load({ :foo => "2" })
+  App.foo # => "2"
+
+Safe loading supports coercion of arrays, numeric and boolean types.
+
+NOTE:
+
+If the original value is an array, and the new value is a string it will
+be treated as if it were a CSV and the string split on the commas.
+
+<b>Arrays of boolean values are not supported at this time.</b>
+
+== Note on Patches/Pull Requests
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+== Copyright
+
+Copyright (c) 2010 Asher Van Brunt. See LICENSE for details.

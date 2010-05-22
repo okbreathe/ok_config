@@ -1,0 +1,12 @@
+---
+numeric_list:
+  - 1
+  - 2
+  - 3
+string_hash:
+  foo: foo
+  bar: bar
+
+string: string
+number: 1
+

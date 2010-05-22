@@ -1,0 +1,11 @@
+---
+numeric_list: "4,5,6"
+string_hash:
+  foo: 1
+  bar: 2
+
+string: 100
+number: "100"
+
+
+
